@@ -7,11 +7,15 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rigid;
     private float h;
     public float vel;
-    public float j_force;
+    public float jumpSpeed = 3;
     private Animator anim;
     //for shoting
     bool lado = false;
     bool jump = true;
+    
+    public bool betterJummp = false;
+    public float fallMultiplier = 0.5f;
+    public float lowJumpMultiplier = 1f;
 
     //en-tierra
     const float player_size = 0.2f;
@@ -25,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -41,12 +45,24 @@ public class PlayerMovement : MonoBehaviour
         
         anim.SetFloat("Player1Run",h);
         rigid.MovePosition(rigid.position + new Vector2(h,0) * vel * Time.deltaTime);
-        esta_en_tierra();
-        if(Input.GetButton("Jump") && !jump){
-            jump = true;
-            anim.SetBool("EstaSaltando", true);
-            rigid.AddForce(new Vector2(0f, j_force));
+        //esta_en_tierra();
+        if(Input.Getkey("space") && CheckGround.isGrounded){
+            //jump = true;
+            //anim.SetBool("EstaSaltando", true);
+            rigid.velocity = new Vector2(rigid.velocity.x, jumpSpeed);
         }
+        if (betterJummp)
+        {
+            if (rigid.velocity.y < 0)
+            {
+                rigid.velocity += Vector2.up*Physics2D.gravity.y*(fallMultiplier)*Time.deltaTime;
+            }
+            if (rigid.velocity.y > 0 && !Input.GetKey("space"))
+            {
+                rigid.velocity += Vector2.up*Physics2D.gravity.y*(lowJumpMultiplier)*Time.deltaTime;
+            }
+        }
+
         if(Input.GetButtonDown("Fire1")){
             anim.SetBool("disparando",true);
             
@@ -66,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
         anim.SetBool("disparando",false);
     }
 
-    void esta_en_tierra(){
+    /*void esta_en_tierra(){
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(tierra_verificada.position, player_size,esto_tierra);
         for(int i = 0; i < colliders.Length; i++){
@@ -76,11 +92,33 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         
-    }
+    }*/
 
     void OnCollisionEnter2D(Collision2D collision){
         if (collision.gameObject.tag == "enemy"){
             
+        }
+    }
+
+     void OnCollisionEnter2D(Collision2D collision){
+        if(collision.gameObject.tag == "enemy"){
+            Debug.Log("Entro en el colider");
+            vida = vida - 20;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other){
+        if(other.gameObject.tag == "abyss"){
+            Debug.Log("Perdiste");
+            //Activar popups
+            popups.enabled = true;
+            Debug.Log("Popup active");
+            Time.timeScale = 0f;
+        }
+        if(other.gameObject.tag == "flag"){
+            Debug.Log("Ganaste!");
+            popups.enabled = true;
+            Time.timeScale = 0f;
         }
     }
 }
