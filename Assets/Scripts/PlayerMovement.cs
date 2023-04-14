@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     //for shooting
     public Transform firePoint;
-    public GameObject bulletPrefab;
+    //public GameObject bulletPrefab;
   
     void Start()
     {
@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void shoot(){
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        //Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         
     }
 
