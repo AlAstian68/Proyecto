@@ -7,11 +7,11 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rigid;
     private float h;
     public float vel;
-    public float jumpSpeed = 3;
+    public float jumpSpeed = 30;
     private Animator anim;
     //for shoting
     bool lado = false;
-    bool jump = true;
+    bool jump = false;
     
     public bool betterJummp = false;
     public float fallMultiplier = 0.5f;
@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        jump = false;
     }
 
     void FixedUpdate()
@@ -46,13 +47,14 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("Player1Run",h);
         rigid.MovePosition(rigid.position + new Vector2(h,0) * vel * Time.deltaTime);
 
-        //esta_en_tierra();
+        esta_en_tierra();
         if(Input.GetButton("Jump") && !jump){
             jump = true;
             //anim.SetBool("EstaSaltando", true);
             rigid.AddForce(new Vector2(0f, jumpSpeed));
 
         }
+        /*
         if (betterJummp)
         {
             if (rigid.velocity.y < 0)
@@ -64,13 +66,14 @@ public class PlayerMovement : MonoBehaviour
                 rigid.velocity += Vector2.up*Physics2D.gravity.y*(lowJumpMultiplier)*Time.deltaTime;
             }
         }
-
+*/
+        /*
         if(Input.GetButtonDown("Fire1")){
             //anim.SetBool("disparando",true);
             
             shoot();
             StartCoroutine(stop_anim());
-        }
+        }*/
     }
 
     void shoot(){
@@ -84,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
         //anim.SetBool("disparando",false);
     }
 
-    /*void esta_en_tierra(){
+    void esta_en_tierra(){
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(tierra_verificada.position, player_size,esto_tierra);
         for(int i = 0; i < colliders.Length; i++){
@@ -94,9 +97,9 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         
-    }*/
+    }
 
-
+/*
      void OnCollisionEnter2D(Collision2D collision){
         if(collision.gameObject.tag == "enemy"){
             Debug.Log("Entro en el colider");
@@ -117,5 +120,5 @@ public class PlayerMovement : MonoBehaviour
             //popups.enabled = true;
             Time.timeScale = 0f;
         }
-    }
+    }*/
 }

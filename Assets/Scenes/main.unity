@@ -2742,7 +2742,7 @@ Animator:
   m_GameObject: {fileID: 1638811443}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5ef0cdbf4f1c2174fb5bed4d42ed780f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 61b5144f3477941198b6d68cb89f744c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2765,13 +2765,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vel: 5
-  j_force: 150
+  jumpSpeed: 50
+  betterJummp: 0
+  fallMultiplier: 0.5
+  lowJumpMultiplier: 1
   esto_tierra:
     serializedVersion: 2
     m_Bits: 64
   tierra_verificada: {fileID: 235050264}
   firePoint: {fileID: 1759004857}
-  bulletPrefab: {fileID: 0}
 --- !u!1 &1654808650
 GameObject:
   m_ObjectHideFlags: 0
