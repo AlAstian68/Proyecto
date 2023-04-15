@@ -44,11 +44,11 @@ public class PlayerMovement : MonoBehaviour
         esta_en_tierra();
         if(Input.GetButton("Jump") && !jump){
             jump = true;
-            anim.SetBool("EstaSaltando", true);
+            //anim.SetBool("EstaSaltando", true);
             rigid.AddForce(new Vector2(0f, j_force));
         }
         if(Input.GetButtonDown("Fire1")){
-            anim.SetBool("disparando",true);
+            //anim.SetBool("disparando",true);
             
             shoot();
             StartCoroutine(stop_anim());
@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator stop_anim(){
         Debug.Log("estamos en la coroutine");
         yield return new WaitForSeconds(.8f);
-        anim.SetBool("disparando",false);
+        //anim.SetBool("disparando",false);
     }
 
     void esta_en_tierra(){
@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         for(int i = 0; i < colliders.Length; i++){
             if(colliders[i].gameObject != gameObject){
                 jump = false;
-                anim.SetBool("EstaSaltando",false);
+                //anim.SetBool("EstaSaltando",false);
             }
         }
         
