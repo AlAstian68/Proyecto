@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     //for shooting
     public Transform firePoint;
-    //public GameObject bulletPrefab;
+    public GameObject bulletPrefab;
   
     void Start()
     {
@@ -50,7 +50,6 @@ public class PlayerMovement : MonoBehaviour
         esta_en_tierra();
         if(Input.GetButton("Jump") && !jump){
             jump = true;
-            //anim.SetBool("EstaSaltando", true);
             rigid.AddForce(new Vector2(0f, jumpSpeed));
 
         }
@@ -67,17 +66,14 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 */
-        /*
         if(Input.GetButtonDown("Fire1")){
-            //anim.SetBool("disparando",true);
-            
             shoot();
-            StartCoroutine(stop_anim());
-        }*/
+            //StartCoroutine(stop_anim());
+        }
     }
 
     void shoot(){
-        //Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         
     }
 
