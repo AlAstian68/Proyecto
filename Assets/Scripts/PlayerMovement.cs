@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
-        //anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -46,11 +46,11 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("Player1Run",h);
         rigid.MovePosition(rigid.position + new Vector2(h,0) * vel * Time.deltaTime);
 
-        esta_en_tierra();
+        //esta_en_tierra();
         if(Input.GetButton("Jump") && !jump){
             jump = true;
             //anim.SetBool("EstaSaltando", true);
-            rigid.AddForce(new Vector2(0f, j_force));
+            rigid.AddForce(new Vector2(0f, jumpSpeed));
 
         }
         if (betterJummp)
@@ -96,16 +96,11 @@ public class PlayerMovement : MonoBehaviour
         
     }*/
 
-    void OnCollisionEnter2D(Collision2D collision){
-        if (collision.gameObject.tag == "enemy"){
-            
-        }
-    }
 
      void OnCollisionEnter2D(Collision2D collision){
         if(collision.gameObject.tag == "enemy"){
             Debug.Log("Entro en el colider");
-            vida = vida - 20;
+            //vida = vida - 20;
         }
     }
 
@@ -113,13 +108,13 @@ public class PlayerMovement : MonoBehaviour
         if(other.gameObject.tag == "abyss"){
             Debug.Log("Perdiste");
             //Activar popups
-            popups.enabled = true;
+            //popups.enabled = true;
             Debug.Log("Popup active");
             Time.timeScale = 0f;
         }
         if(other.gameObject.tag == "flag"){
             Debug.Log("Ganaste!");
-            popups.enabled = true;
+            //popups.enabled = true;
             Time.timeScale = 0f;
         }
     }
